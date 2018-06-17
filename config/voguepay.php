@@ -18,17 +18,17 @@ return [
      * MERCHANT ID From Voguepay Dashboard
      * Required
      */
-    'v_merchant_id ' => getenv('VOGUEPAY_V_MERCHANT_ID'),
+    'v_merchant_id' => getenv('VOGUEPAY_V_MERCHANT_ID'),
     /**
      * Currency From Voguepay Dashboard
      * Required
      */
-    'cur ' => getenv('VOGUEPAY_CURRENCY'),
+    'cur' => getenv('VOGUEPAY_CURRENCY'),
     /**
      * Developer Code From Voguepay Dashboard
      * Optional
      */
-    'developer_code ' => getenv('VOGUEPAY_DEVELOPER_CODE'),
+    'developer_code' => getenv('VOGUEPAY_DEVELOPER_CODE'),
     /**
      * Voguepay Payment URL
      * Required
@@ -43,7 +43,7 @@ return [
      * Optional success Url From Merchant Voguepay Settings
      *
      */
-    'success_url ' => getenv('VOGUEPAY_SUCCESS_URL'),
+    'success_url' => getenv('VOGUEPAY_SUCCESS_URL'),
     /**
      * Optional failed Url From Merchant Voguepay Settings
      *
