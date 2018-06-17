@@ -38,15 +38,15 @@ return [
      * Optional notification Url From Merchant Voguepay Settings
      *
      */
-    'notify_url' => getenv('NOTIFY_URL'),
+    'notify_url' => getenv('VOGUEPAY_NOTIFY_URL'),
     /**
      * Optional success Url From Merchant Voguepay Settings
      *
      */
-    'success_url ' => getenv('SUCCESS_URL'),
+    'success_url ' => getenv('VOGUEPAY_SUCCESS_URL'),
     /**
      * Optional failed Url From Merchant Voguepay Settings
      *
      */
-    'fail_url' => getenv('FAIL_URL'),
+    'fail_url' => getenv('VOGUEPAY_FAIL_URL'),
 ];
