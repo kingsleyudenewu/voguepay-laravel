@@ -148,7 +148,7 @@ Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
             $transactionData['fail_url'] = config('voguepay.fail_url');
             $transactionData['success_url'] = config('voguepay.success_url');
             $voguepay = Voguepay::payButton($transactionData, $class = '', $buttonTitle = 'Pay Now', 'make_payment_blue.png');
-            return view('voguepay', compact('voguepay'));
+            return view('voguepay', compact('voguepay')); 
         }
   }
 ?>
