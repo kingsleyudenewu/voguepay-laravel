@@ -90,5 +90,12 @@ php artisan vendor:publish --provider="Kingsley\Voguepay\VoguepayServiceProvider
 <h2>Usage</h2>
 <p>Open your .env file and place this config settings</p>
 <pre>
-    VOGUEPAY_V_MERCHANT_ID=x
+    VOGUEPAY_V_MERCHANT_ID=xxxxxxxxxx
+    VOGUEPAY_CURRENCY=xxxxxxxx
+    VOGUEPAY_DEVELOPER_CODE=xxxxxxxx
+    VOGUEPAY_PAYMENT_URL=xxxxxxxx
+    VOGUEPAY_NOTIFY_URL=xxxxxxxx
+    VOGUEPAY_SUCCESS_URL=xxxxxxxxxx
+    VOGUEPAY_FAIL_URL=xxxxxxxxxx
+    
 </pre>
