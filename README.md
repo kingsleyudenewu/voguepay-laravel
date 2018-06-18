@@ -154,3 +154,9 @@ Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
 ?>
 </pre>
 </div>
+
+<h2>Contribution</h2>
+<p>Please feel free to fork this package and contribute by submitting a pull request to enhance the functionalities.</p>
+
+<h2>Appreciation</h2>
+<p>I want to urge you to please star my repo and contribute to the payment community at large</p>
