@@ -11,7 +11,7 @@
 <pre>composer require kingsley/voguepay-laravel</pre>
 </div>
 
-Once Laravel Paystack is installed, you need to register the service provider. Open up config/app.php and add the following to the <code>providers</code>.
+Once Voguepay Laravel is installed, you need to register the service provider. Open up config/app.php and add the following to the <code>providers</code>.
 
 <p>
   <blockquote>
