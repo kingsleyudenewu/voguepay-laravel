@@ -97,5 +97,11 @@ php artisan vendor:publish --provider="Kingsley\Voguepay\VoguepayServiceProvider
     VOGUEPAY_NOTIFY_URL=xxxxxxxx
     VOGUEPAY_SUCCESS_URL=xxxxxxxxxx
     VOGUEPAY_FAIL_URL=xxxxxxxxxx
-    
 </pre>
+
+<p>Lets take a look at some sample codes below</p>
+<div class="highlight highlight-text-html-php">
+<pre>
+Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay'); 
+</pre>
+</div>
