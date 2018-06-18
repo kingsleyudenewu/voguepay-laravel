@@ -130,7 +130,6 @@ Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
             $transactionData['paymentUrl'] = config('voguepay.paymentUrl');
             $transactionData['merchant_ref'] = uniqid(6, true);
             $transactionData['memo'] = "Sample Voguepay form";
-    
             $transactionData['item_1'] = "Domain name";
             $transactionData['description_1'] = "Sample Domain purchase";
             $transactionData['price_1'] = 3000;
@@ -138,21 +137,17 @@ Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
             $transactionData['description_2'] = "Sample Domain purchase";
             $transactionData['price_2'] = 5000;
             $transactionData['developer_code'] = config('voguepay.developer_code');
-            $transactionData['memo'] = "Sample Voguepay form";
-    
+            $transactionData['memo'] = "Sample Voguepay form"
             $transactionData['store_id'] = 25;
             $transactionData['total'] = 8000;
             $transactionData['name'] = "Tofunmi Falade";
             $transactionData['address'] = "Oluyole bodija";
             $transactionData['phone'] = "08054327653";
-            $transactionData['email'] = "tfuckvoguepay@nomail.com";
-    
+            $transactionData['email'] = "tfuckvoguepay@nomail.com"
             $transactionData['notify_url'] = config('voguepay.notify_url');
             $transactionData['fail_url'] = config('voguepay.fail_url');
             $transactionData['success_url'] = config('voguepay.success_url');
-            
             $voguepay = Voguepay::payButton($transactionData, $class = '', $buttonTitle = 'Pay Now', 'make_payment_blue.png');
-            
             return view('voguepay', compact('voguepay'));
         }
   }
