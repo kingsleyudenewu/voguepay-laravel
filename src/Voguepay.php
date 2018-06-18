@@ -50,10 +50,10 @@ class Voguepay
      *
      *
      * NGN - Nigerian Naira
-       USD - US Dollar
-       EUR - Euro
-       GBP - British Pound
-       ZAR - South African Rand
+    USD - US Dollar
+    EUR - Euro
+    GBP - British Pound
+    ZAR - South African Rand
      *
      *
      * This field is optional. If not provided, transaction will be initiated and processed in default currency of your VoguePay account.
@@ -172,38 +172,6 @@ class Voguepay
         $this->fail_url = Config::get('voguepay.fail_url');
     }
 
-//    public function makePaymentRequest(){
-//        $queryString = (Config::get('voguepay.v_merchant_id') == 'demo')
-//            ?   [
-//                'v_merchant_id'     => Config::get('voguepay.v_merchant_id'),
-//                'cur'               => Config::get('voguepay.cur'),
-//                'type'              => 'json',
-//                'merchant_ref'      => uniqid(5, true),
-//                'notify_url'        => Config::get('voguepay.notify_url'),
-//                'success_url'       => Config::get('voguepay.success_url'),
-//                'fail_url'          => Config::get('voguepay.fail_url'),
-//                'developer_code'    => Config::get('voguepay.developer_code'),
-//                'demo'              => 'true',
-//            ]
-//            :   [
-//                'v_merchant_id'     => Config::get('voguepay.v_merchant_id'),
-//                'cur'               => Config::get('voguepay.cur'),
-//                'type'              => 'json',
-//                'merchant_ref'      => uniqid(5, true),
-//                'notify_url'        => Config::get('voguepay.notify_url'),
-//                'success_url'       => Config::get('voguepay.success_url'),
-//                'fail_url'          => Config::get('voguepay.fail_url'),
-//                'developer_code'    => Config::get('voguepay.developer_code')
-//            ];
-//
-//        $request = $client->get('https://voguepay.com/', [
-//            'query'     => $queryString,
-//            'headers'   => ['Accept' => 'application/json'],
-//        ]);
-//        $response = $request->getBody();
-//        $transaction = json_decode($response, true);
-//    }
-
     /**
      * @param $transactionData
      *
@@ -268,7 +236,8 @@ class Voguepay
      */
     private function generateSubmitButtonForVoguePay($transactionData, $class, $buttonTitle, $defaultButton=null)
     {
-        $allowedFields = ['merchant_ref', 'memo', 'developer_code', 'store_id', 'total', 'recurrent', 'name', 'address', 'city', 'phone', 'email', 'zipcode', 'state'];
+
+        $allowedFields = ['merchant_ref', 'v_merchant_id', 'cur', 'notify_url', 'success_url', 'fail_url', 'developer_code', 'memo', 'developer_code', 'store_id', 'total', 'recurrent', 'name', 'address', 'city', 'phone', 'email', 'zipcode', 'state'];
 
         $transactionData = $this->extractNeededTransactionData($transactionData, $allowedFields);
 
@@ -288,18 +257,11 @@ class Voguepay
         $addition = [];
 
         foreach ($transactionData as $key => $val) {
-            //if ($key != 'merchant_ref') {
-                $hiddens[] = '<input type="hidden" name="'.$key.'" value="'.$val.'" />'."\n";
-            //}
+            $hiddens[] = '<input type="hidden" name="'.$key.'" value="'.$val.'" />'."\n";
         }
-        foreach ($transactionData as $key => $val) {
-            if ($key == 'notify_url' or $key == 'success_url' or $key == 'fail_url') {
-                $configs[] = '<input type="hidden" name="'.$key.'" value="'.route($val, $val['merchant_ref']).'" />'."\n";
-            }
-//            elseif (!is_null($this->getConfig('voguepay', $key)) and $key != 'submitButton' and $key != 'table') {
-//                $configs[] = '<input type="hidden" name="'.$key.'" value="'.$val.'" />'."\n";
-//            }
-        }
+
+
+
         if ((isset($transactionData['total']) or array_key_exists('price_1', $transactionData)) === false) {
             throw new Exception("Please enter a price for your product");
         }
@@ -311,7 +273,7 @@ class Voguepay
 
 
         $form = '<script src="https://voguepay.com/js/voguepay.js"></script>';
-        $form .= '<form onsubmit="return false;" method="POST" action="'.$this->setBaseUrl().'" id="'.$formId.'">'.
+        $form .= '<form onsubmit="return false;" method="POST" action="'.$this->baseUrl.'" id="'.$formId.'">'.
             implode('', $configs).implode('', $hiddens).implode('', $addition).
             '</form>';
         $form .= "<script>
