@@ -100,8 +100,62 @@ php artisan vendor:publish --provider="Kingsley\Voguepay\VoguepayServiceProvider
 </pre>
 
 <p>Lets take a look at some sample codes below</p>
+<h5>Create a Route Pay</h5>
 <div class="highlight highlight-text-html-php">
 <pre>
 Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay'); 
+</pre>
+</div>
+
+
+<h5>Create a Controller PaymentController</h5>
+<div class="highlight highlight-text-html-php">
+<pre>
+<?php 
+  <?php
+  
+  namespace App\Http\Controllers;
+  
+  use Illuminate\Http\Request;
+  
+  use App\Http\Requests;
+  use App\Http\Controllers\Controller;
+  use Voguepay;
+  
+  class PaymentController extends Controller
+  {
+        public function redirectToGateway(){
+            $transactionData['v_merchant_id'] = Config::get('voguepay.v_merchant_id');
+            $transactionData['cur'] = config('voguepay.cur');
+            $transactionData['paymentUrl'] = config('voguepay.paymentUrl');
+            $transactionData['merchant_ref'] = uniqid(6, true);
+            $transactionData['memo'] = "Sample Voguepay form";
+    
+            $transactionData['item_1'] = "Domain name";
+            $transactionData['description_1'] = "Sample Domain purchase";
+            $transactionData['price_1'] = 3000;
+            $transactionData['item_2'] = "Domain name";
+            $transactionData['description_2'] = "Sample Domain purchase";
+            $transactionData['price_2'] = 5000;
+            $transactionData['developer_code'] = config('voguepay.developer_code');
+            $transactionData['memo'] = "Sample Voguepay form";
+    
+            $transactionData['store_id'] = 25;
+            $transactionData['total'] = 8000;
+            $transactionData['name'] = "Tofunmi Falade";
+            $transactionData['address'] = "Oluyole bodija";
+            $transactionData['phone'] = "08054327653";
+            $transactionData['email'] = "tfuckvoguepay@nomail.com";
+    
+            $transactionData['notify_url'] = config('voguepay.notify_url');
+            $transactionData['fail_url'] = config('voguepay.fail_url');
+            $transactionData['success_url'] = config('voguepay.success_url');
+            
+            $voguepay = Voguepay::payButton($transactionData, $class = '', $buttonTitle = 'Pay Now', 'make_payment_blue.png');
+            
+            return view('voguepay', compact('voguepay'));
+        }
+  }
+?>
 </pre>
 </div>
