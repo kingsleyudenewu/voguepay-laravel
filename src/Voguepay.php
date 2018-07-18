@@ -119,7 +119,7 @@ class Voguepay
     /**
      * @param string $v_merchant_id
      */
-    public function setVMerchantId()
+    public function setMerchantId()
     {
         $this->v_merchant_id = Config::get('voguepay.v_merchant_id');
     }
