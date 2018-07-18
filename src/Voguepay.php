@@ -16,6 +16,12 @@ use Exception;
 class Voguepay
 {
     /**
+     * The preferred method for server-server connections
+     * @var connection_type;
+     */
+    protected $connection_type;
+    
+    /**
      * Instance of Client from GuzzleHttp
      * @var Client
      */
@@ -98,6 +104,7 @@ class Voguepay
         $this->setSuccessUrl();
         $this->setFailUrl();
         $this->setBaseUrl();
+        $this->setConnectionType();
     }
 
     /**
@@ -114,6 +121,14 @@ class Voguepay
                 ]
             ]
         );
+    }
+    
+    /**
+     * @param string $v_merchant_id
+     */
+    public function setConnectionType()
+    {
+        $this->connection_type = 'curl';
     }
 
     /**
@@ -302,6 +317,44 @@ class Voguepay
             }
         }
         return $redefinedTransactionData;
+    }
+    
+    private function getPaymentDetails($transaction_id,$type="json")
+    {
+        //currently only json format is supported. But XML would be added soon.
+        $url = "https://voguepay.com/?v_transaction_id={$transaction_id}&type={$type}";
+        if($this->connection_type =="curl")
+        {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            if($this->proxy)
+            {
+                curl_setopt($ch, CURLOPT_PROXY, $this->proxy);
+                //curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            }
+            curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windowos NT 5.1; en-NG; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13 Vyren Media-VoguePay API Ver 1.0");
+            if(curl_errno($ch)){ curl_error($ch)." - [Called In getPaymentDetails() CURL]"; }
+            $output = curl_exec($ch);
+            curl_close($ch);
+        }
+        if($this->connection_type =="fgc")
+        {
+            $output = file_get_contents($url);
+            if(!$output) {$output = "Failed To Get JSON Data - [Called In getPaymentDetails() FGC]"; }
+        }
+        return $output;
+    }
+    
+    public function verifyPayment($transaction_id)
+    {
+        $details = json_decode($this->getPaymentDetails($transaction_id,"json"));
+        if(!$details){ return json_encode(array("state"=>"error","msg"=>"Failed Getting Transaction Details - [Called In verifyPayment()]"));}
+        if($details->total < 1) return json_encode(array("state"=>"error","msg"=>"Invalid Transaction"));
+        if($details->status != 'Approved') return json_encode(array("state"=>"error","msg"=>"Transaction {$details->status}"));
+        return json_encode(array("state"=>"success","msg"=>"Transaction Approved"));
     }
 
 
