@@ -275,13 +275,9 @@ class Voguepay
             $hiddens[] = '<input type="hidden" name="'.$key.'" value="'.$val.'" />'."\n";
         }
 
-
-
         if ((isset($transactionData['total']) or array_key_exists('price_1', $transactionData)) === false) {
             throw new Exception("Please enter a price for your product");
         }
-        //$merchantRef = '<input type="hidden" name="merchant_ref" value="'.$merchantRef.'" />'."\n";
-        //$defaultButton = $this->getConfig('voguepay', 'submitButton');
         $addition[] = in_array($defaultButton, $voguePayButtons)
             ? '<input type="image"  src="https://voguepay.com/images/buttons/'.$defaultButton.'" alt="Submit">'
             : '<input type="submit"  class="'.$class.'">'.$buttonTitle.'</input>';
@@ -344,7 +340,10 @@ class Voguepay
     public function verifyPayment($transaction_id)
     {
         $details = json_decode($this->getPaymentDetails($transaction_id,"json"));
-        if(!$details){ return json_encode(array("state"=>"error","msg"=>"Failed Getting Transaction Details - [Called In verifyPayment()]"));}
+        if(!$details)
+        {
+            return json_encode(array("state"=>"error","msg"=>"Failed Getting Transaction Details - [Called In verifyPayment()]"));
+        }
         if($details->total < 1) return json_encode(array("state"=>"error","msg"=>"Invalid Transaction"));
         if($details->status != 'Approved') return json_encode(array("state"=>"error","msg"=>"Transaction {$details->status}"));
         return json_encode(array("state"=>"success","msg"=>"Transaction Approved"));
