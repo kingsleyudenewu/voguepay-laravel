@@ -13,6 +13,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Config;
 use Exception;
 
+
 class Voguepay
 {
     /**
