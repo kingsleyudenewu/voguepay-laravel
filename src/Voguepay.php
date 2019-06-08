@@ -97,7 +97,7 @@ class Voguepay
     {
         //Load the header request by default
         $this->setRequestOptions();
-        $this->setVMerchantId();
+        $this->setMerchantId();
         $this->setCur();
         $this->setDeveloperCode();
         $this->setNotifyUrl();
