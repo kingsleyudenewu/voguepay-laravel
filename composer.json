@@ -3,6 +3,7 @@
   "description": "A Laravel 5 Package for VoguePay",
   "keywords": ["php","github", "laravel","Open Source","payments", "subscription", "voguepay", "voguepay.com","laravel 5"],
   "license": "MIT",
+  "type": "library",
   "authors": [
     {
       "name": "Kingsley Udenewu",
