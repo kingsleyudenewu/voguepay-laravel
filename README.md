@@ -2,9 +2,6 @@
 <blockquote>
 <p> A laravel 5 Package for Voguepay checkout button </p>
 </blockquote>
-<p>
-[![Issues](https://img.shields.io/github/issues/kingsleyudenewu/voguepay-laravel.svg?style=flat-square)](https://github.com/kingsleyudenewu/voguepay-laravel/issues)
-</p>
 <h2>Installation</h2>
 
 <p><a href="https://php.net" rel="nofollow">PHP</a> 5.4+ or <a href="http://hhvm.com" rel="nofollow">HHVM</a> 3.3+, and <a href="https://getcomposer.org" rel="nofollow">Composer</a> are required.</p>
